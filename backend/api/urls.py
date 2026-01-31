@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import health
+from .views import CsrfView
 
 urlpatterns = [
-    path("health/", health),
+    path("csrf/", CsrfView.as_view()),
 ]

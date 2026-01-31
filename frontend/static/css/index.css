@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding-top: var(--navbar-height);
 
-font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -44,4 +44,72 @@ font-family: "Open Sans", sans-serif;
   padding: 5px 10px;
   border-radius: 3px;
   background: var(--navbar-bg-light);
+}
+
+input {
+  padding: 15px 10px;
+  border: 1px solid var(--border);
+  background: rgb(0,0,0,0);
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: hidden;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  outline: none;
+}
+
+input:focus {
+  border: 1px solid var(--border-light);
+}
+
+input:-webkit-autofill {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
+}
+
+.account-form {
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.account-form-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.account-form-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+button {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  cursor: pointer;
+}
+
+.account-form-button {
+  border: none;
+  border-radius: 3px;
+  background: var(--blue);
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.account-form-button:hover {
+  background: var(--blue-dark);
 }

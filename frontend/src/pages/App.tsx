@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import HomePage from "./HomePage";
+import DashboardPage from "./DashboardPage";
 
 
 function NotFound() {
@@ -11,14 +11,13 @@ function NotFound() {
 
 
 export default function App() {
-  const [status, setStatus] = useState<string>("loading...");
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetch("/api/health/")
       .then((r) => r.json())
       .then((data) => setStatus(data.status))
       .catch(() => setStatus("error"));
-  }, []);
+  }, []); */
 
   return (
     <div style={{ padding: 24 }}>
@@ -29,11 +28,10 @@ export default function App() {
             <Link className="navbar-link" to="/register">Register</Link>
         </div>
       </nav>
-
-      <p>Backend status: {status}</p>
-
+      
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<div />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
