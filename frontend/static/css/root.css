@@ -1,0 +1,6 @@
+:root {
+    --bg: rgb(12, 14, 15);
+    --navbar-bg: rgb(25, 29, 31);
+    --navbar-bg-light: rgb(35, 41, 43);
+    --navbar-height: 60px;
+}
