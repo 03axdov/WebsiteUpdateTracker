@@ -49,6 +49,7 @@ export default function RegisterPage() {
           onChange={(e) => setUsername(e.target.value)}
           disabled={disabled}
           autoComplete="username"
+          required
         />
 
         <input
@@ -57,6 +58,7 @@ export default function RegisterPage() {
           onChange={(e) => setEmail(e.target.value)}
           disabled={disabled}
           autoComplete="email"
+          required
         />
 
         <input
@@ -66,6 +68,7 @@ export default function RegisterPage() {
           onChange={(e) => setPassword1(e.target.value)}
           disabled={disabled}
           autoComplete="new-password"
+          required
         />
 
         <input
@@ -75,6 +78,7 @@ export default function RegisterPage() {
           onChange={(e) => setPassword2(e.target.value)}
           disabled={disabled}
           autoComplete="new-password"
+          required
         />
 
         <button className="account-form-button" disabled={disabled}>

@@ -3,6 +3,7 @@ import { apiFetch, ensureCsrfCookie } from "../api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth";
 import type { TrackedWebsite } from "../types/tracked-websites";
+import TrackedWebsiteElement from "../components/TrackedWebsiteElement";
 
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
@@ -28,9 +29,11 @@ export default function DashboardPage() {
     <div className="dashboard-right">
       <h1 className="dashboard-title">Dashboard</h1>
 
-      {trackedWebsites.map((tw: TrackedWebsite) => <div key={tw.id}>
-        {tw.url}
-      </div>)}
+      <div className="tracked-websites-list">
+        {trackedWebsites.map((tw: TrackedWebsite) => <TrackedWebsiteElement trackedWebsite={tw} key={tw.id}></TrackedWebsiteElement>)}
+      </div>
+
+      
     </div>
   </div>);
 }

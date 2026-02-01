@@ -27,4 +27,18 @@
 
 .dashboard-right {
     padding-left: calc(var(--sidebar-width) + 30px);
+    padding-right: 30px;
+}
+
+.tracked-websites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tracked-website-element {
+    padding: 10px 20px;
+    background: var(--navbar-bg);
+    border-radius: 3px;
+    font-size: 1.1rem;
 }

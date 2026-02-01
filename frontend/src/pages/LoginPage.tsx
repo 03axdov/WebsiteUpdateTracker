@@ -45,6 +45,7 @@ export default function LoginPage() {
           onChange={(e) => setEmailOrUsername(e.target.value)}
           autoComplete="username"
           disabled={disabled}
+          required
         />
 
         <input
@@ -54,6 +55,7 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
           disabled={disabled}
+          required
         />
 
         <button className="account-form-button" disabled={disabled}>
