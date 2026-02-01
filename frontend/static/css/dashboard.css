@@ -41,4 +41,36 @@
     background: var(--navbar-bg);
     border-radius: 3px;
     font-size: 1.1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.tracked-websites-controls {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tracked-websites-search {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    min-width: 400px;
+    width: 40%;
+}
+
+.tracked-websites-sortdir {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.tracked-website-created {
+    margin-left: auto;
 }

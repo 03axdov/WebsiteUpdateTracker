@@ -64,7 +64,7 @@ input {
   outline: hidden;
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-style: normal;
   font-variation-settings: "wdth" 100;
   outline: none;
@@ -134,4 +134,37 @@ button {
   font-size: 1.1rem;
   cursor: pointer;
   user-select: none;
+}
+
+select {
+  appearance: none;           /* remove native styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: var(--navbar-bg);
+  color: #e5e5e5;
+
+  padding: 8px 36px 8px 12px;  /* room for arrow */
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+
+  font-size: 14px;
+  line-height: 1.2;
+
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+
+  cursor: pointer;
+  outline: none;
+
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+/* Dropdown options */
+select option {
+  background-color: var(--navbar-bg);
+  color: #e5e5e5;
 }
