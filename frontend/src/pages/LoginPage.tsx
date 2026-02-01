@@ -1,54 +1,65 @@
-import { useState } from "react";
-import { apiFetch, ensureCsrfCookie } from "../api";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth"; // adjust path
 
 export default function LoginPage() {
   const nav = useNavigate();
+  const { user, loading: authLoading, login } = useAuth();
+
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  // If already logged in, bounce to dashboard
+  useEffect(() => {
+    if (!authLoading && user) nav("/dashboard", { replace: true });
+  }, [authLoading, user, nav]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    setLoading(true);
+    setSubmitting(true);
 
     try {
-      await ensureCsrfCookie();
+      await login({ email: emailOrUsername, password });
 
-      // Try email first; if your backend expects username, switch the payload key.
-      await apiFetch("/api/auth/login/", {
-        method: "POST",
-        body: JSON.stringify({ email: emailOrUsername, password }),
-      });
-
-      nav("/dashboard");
+      nav("/dashboard", { replace: true });
     } catch (err: any) {
-      setError(err.message ?? "Login failed");
+      setError(err?.message ?? "Login failed");
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   }
+
+  const disabled = submitting || authLoading;
 
   return (
     <div className="account-form">
       <h1 className="account-form-title">Login</h1>
+
       <form onSubmit={onSubmit} className="account-form-inner">
         <input
           placeholder="Email (or username)"
           value={emailOrUsername}
           onChange={(e) => setEmailOrUsername(e.target.value)}
           autoComplete="username"
+          disabled={disabled}
         />
+
         <input
           placeholder="Password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           autoComplete="current-password"
+          disabled={disabled}
         />
-        <button className="account-form-button" disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
+
+        <button className="account-form-button" disabled={disabled}>
+          {submitting ? "Logging in..." : "Login"}
+        </button>
+
         {error && <p style={{ color: "crimson" }}>{error}</p>}
       </form>
     </div>

@@ -14,11 +14,15 @@ export default function DashboardPage() {
       .finally(() => setLoading(false));
   }, [nav]);
 
-  if (loading) return <p>Loading...</p>;
-  return (
-    <div>
-      <h2>Dashboard</h2>
+  return (<div className="dashboard-page">
+    <div className="dashboard-left">
+      <img src="images/home.svg" className="dashboard-icon" />
+      <img src="images/settings.svg" className="dashboard-icon" />
+      <img src="images/help.svg" className="dashboard-icon" style={{marginTop: "auto"}}/>
+    </div>
+    <div className="dashboard-right">
+      <h1 className="dashboard-title">Dashboard</h1>
       <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
-  );
+  </div>);
 }

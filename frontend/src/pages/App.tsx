@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import DashboardPage from "./DashboardPage";
+import { useAuth } from "../auth";
+import LogoutPage from "./LogoutPage";
 
 
 function NotFound() {
@@ -12,20 +14,27 @@ function NotFound() {
 
 export default function App() {
 
-  /* useEffect(() => {
-    fetch("/api/health/")
-      .then((r) => r.json())
-      .then((data) => setStatus(data.status))
-      .catch(() => setStatus("error"));
-  }, []); */
+  const { user, loading, logout } = useAuth();
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="app">
 
       <nav className="navbar">
         <div className="navbar-auth">
+          {
+          loading ? (<span>
+            
+          </span>) : (user ? <>
+            <Link className="navbar-link" to="/logout">Logout</Link>
+            <div className="profile-icon">
+              {user.username.slice(0, 2)}
+            </div>
+          </> : 
+          <>
             <Link className="navbar-link" to="/login">Login</Link>
             <Link className="navbar-link" to="/register">Register</Link>
+          </>)
+          }
         </div>
       </nav>
       
@@ -34,6 +43,8 @@ export default function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/logout" element={<LogoutPage />} />
+
 
         {/* Catch-all */}
         <Route path="*" element={<NotFound />} />

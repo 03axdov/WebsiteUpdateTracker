@@ -7,4 +7,8 @@
     --navbar-height: 60px;
     --blue: rgb(0, 132, 255);
     --blue-dark: rgb(0, 132, 255, 0.9);
+    --blue-light: rgb(0, 162, 255);
+
+    --sidebar-width: 75px;
+    --sidebar-bg: rgb(15, 19, 26);
 }

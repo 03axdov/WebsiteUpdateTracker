@@ -1,0 +1,30 @@
+.dashboard-title {
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+.dashboard-left {
+    width: var(--sidebar-width);
+    height: calc(100% - var(--navbar-height));
+    background: var(--sidebar-bg);
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    box-sizing: border-box;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding: 30px 0;
+}
+
+.dashboard-icon {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.dashboard-right {
+    padding-left: calc(var(--sidebar-width) + 30px);
+}

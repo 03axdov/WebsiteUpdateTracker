@@ -1,48 +1,86 @@
-import { useState } from "react";
-import { apiFetch, ensureCsrfCookie } from "../api";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth"; // adjust path
 
 export default function RegisterPage() {
   const nav = useNavigate();
+  const { user, loading: authLoading, register } = useAuth();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  // If already logged in, bounce
+  useEffect(() => {
+    if (!authLoading && user) nav("/dashboard", { replace: true });
+  }, [authLoading, user, nav]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    setLoading(true);
+    setSubmitting(true);
 
     try {
-      await ensureCsrfCookie();
+      await register({ username, email, password1, password2 });
 
-      await apiFetch("/api/auth/registration/", {
-        method: "POST",
-        body: JSON.stringify({ username, email, password1, password2 }),
-      });
-
-      // Often registration also logs you in (depends on configuration).
-      // If not logged in, redirect to login instead.
-      nav("/dashboard");
+      // If your backend DOES auto-login on registration, this will work.
+      // If it DOESN’T, you may want to send them to /login instead.
+      nav("/dashboard", { replace: true });
     } catch (err: any) {
-      setError(err.message ?? "Registration failed");
+      setError(err?.message ?? "Registration failed");
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   }
+
+  const disabled = submitting || authLoading;
 
   return (
     <div className="account-form">
       <h1 className="account-form-title">Register</h1>
+
       <form onSubmit={onSubmit} className="account-form-inner">
-        <input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Password" type="password" value={password1} onChange={(e) => setPassword1(e.target.value)} />
-        <input placeholder="Repeat password" type="password" value={password2} onChange={(e) => setPassword2(e.target.value)} />
-        <button className="account-form-button" disabled={loading}>{loading ? "Creating..." : "Create account"}</button>
+        <input
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          disabled={disabled}
+          autoComplete="username"
+        />
+
+        <input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={disabled}
+          autoComplete="email"
+        />
+
+        <input
+          placeholder="Password"
+          type="password"
+          value={password1}
+          onChange={(e) => setPassword1(e.target.value)}
+          disabled={disabled}
+          autoComplete="new-password"
+        />
+
+        <input
+          placeholder="Repeat password"
+          type="password"
+          value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
+          disabled={disabled}
+          autoComplete="new-password"
+        />
+
+        <button className="account-form-button" disabled={disabled}>
+          {submitting ? "Creating..." : "Create account"}
+        </button>
+
         {error && <p style={{ color: "crimson" }}>{error}</p>}
       </form>
     </div>
