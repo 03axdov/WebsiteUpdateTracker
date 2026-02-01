@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "../api";
+import { apiFetch, ensureCsrfCookie } from "../api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth";
+import type { TrackedWebsite } from "../types/tracked-websites";
 
 export default function DashboardPage() {
-  const nav = useNavigate();
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, loading: authLoading } = useAuth();
+  const [trackedWebsites, setTrackedWebsites] = useState<TrackedWebsite[]>([])
+
+  async function getTrackedWebsites() {
+    const data = await apiFetch("/api/tracked-websites/", { method: "GET" });
+    setTrackedWebsites(data);
+  }
 
   useEffect(() => {
-    apiFetch("/api/auth/user/")
-      .then(setUser)
-      .catch(() => nav("/login"))
-      .finally(() => setLoading(false));
-  }, [nav]);
+    getTrackedWebsites()
+  }, [authLoading])
+
+  console.log(trackedWebsites)
 
   return (<div className="dashboard-page">
     <div className="dashboard-left">
@@ -22,7 +27,10 @@ export default function DashboardPage() {
     </div>
     <div className="dashboard-right">
       <h1 className="dashboard-title">Dashboard</h1>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+
+      {trackedWebsites.map((tw: TrackedWebsite) => <div key={tw.id}>
+        {tw.url}
+      </div>)}
     </div>
   </div>);
 }

@@ -1,13 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { apiFetch, ensureCsrfCookie } from "./api";
+import type { User } from "./types/auth";
 
-export type User = {
-    pk: number;
-    username: string;
-    email: string;
-    first_name?: string;
-    last_name?: string;
-};
 
 type AuthState = {
     user: User | null;
@@ -31,10 +25,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function refreshUser() {
         try {
-        const u = await apiFetch("/api/auth/user/");
-        setUser(u);
+            const u = await apiFetch("/api/auth/user/");
+            setUser(u);
         } catch {
-        setUser(null);
+            setUser(null);
         }
     }
 
@@ -55,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email: string;
         password1: string;
         password2: string;
-        }) {
+    }) {
         await ensureCsrfCookie();
 
         await apiFetch("/api/auth/registration/", {

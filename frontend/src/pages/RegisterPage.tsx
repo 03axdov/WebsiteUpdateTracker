@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth"; // adjust path
 
 export default function RegisterPage() {
@@ -80,6 +80,8 @@ export default function RegisterPage() {
         <button className="account-form-button" disabled={disabled}>
           {submitting ? "Creating..." : "Create account"}
         </button>
+
+        <p className="account-form-note text-gray">Already have an account? Then please <Link to="/login">sign in</Link></p>
 
         {error && <p style={{ color: "crimson" }}>{error}</p>}
       </form>

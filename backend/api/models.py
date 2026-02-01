@@ -12,4 +12,4 @@ class TrackedWebsite(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.url
+        return f"{self.url} ({self.owner.username})"
