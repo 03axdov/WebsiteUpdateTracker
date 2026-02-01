@@ -44,7 +44,29 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 30px;
+}
+
+.tracked-website-title {
+    width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tracked-website-url {
+    width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tracked-website-date {
+    white-space: nowrap;
+}
+
+.tracked-website-element-header {
+    background: rgb(0,0,0,0);
 }
 
 .tracked-websites-controls {
@@ -69,8 +91,4 @@
     width: 25px;
     height: 25px;
     cursor: pointer;
-}
-
-.tracked-website-created {
-    margin-left: auto;
 }

@@ -89,31 +89,23 @@ export default function DashboardPage() {
           className="tracked-websites-search"
         />
 
-        {/*<select
-          value={sortKey}
-          onChange={(e) => setSortKey(e.target.value as TrackedWebsiteSortKey)}
-          className="tracked-websites-sortkey"
-        >
-          <option value="created_at">Sort: Created</option>
-          <option value="url">Sort: URL</option>
-        </select>
-
-        <img
-          onClick={() => setSortDir((d) => (d === "asc" ? "desc" : "asc"))}
-          className="tracked-websites-sortdir"
-          title="Toggle sort direction"
-          src="images/arrow.svg"
-          style={{rotate: (sortDir === "asc" ? "180deg" : "0deg"), transition:"0.2s"}}
-        />*/}
-
         <div style={{ marginLeft: "auto", opacity: 0.8 }}>
           {visibleWebsites.length} / {trackedWebsites.length}
         </div>
       </div>
 
       <div className="tracked-websites-list">
+        <div className="tracked-website-element tracked-website-element-header">
+          <span className="tracked-website-title">
+            Title
+          </span>
+          <span className="tracked-website-url">URL</span>
+          <span className="tracked-website-date">
+              Created at
+          </span>
+        </div>
         {visibleWebsites.map((tw: TrackedWebsite) => <TrackedWebsiteElement trackedWebsite={tw} key={tw.id}></TrackedWebsiteElement>)}
-        {trackedWebsites.length != 0 && visibleWebsites.length == 0 && <p className="gray-text">No such websites found.</p>}
+        {trackedWebsites.length != 0 && visibleWebsites.length == 0 && <div className="tracked-website-element"><span className="text-gray">No such websites found.</span></div>}
       </div>
 
       

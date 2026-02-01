@@ -4,10 +4,11 @@ export type TrackedWebsite = {
     id: number,
     owner: User;
     url: string;
+    title: string;
     created_at: Date;
 };
 
-export type TrackedWebsiteSortKey = "created_at" | "url";
+export type TrackedWebsiteSortKey = "created_at" | "url" | "title";
 
 export function formatNiceDate(
   input: Date | string | null | undefined,
