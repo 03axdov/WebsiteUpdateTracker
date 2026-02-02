@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, NavLink } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import DashboardPage from "./DashboardPage";
 import { useAuth } from "../auth";
 import LogoutPage from "./LogoutPage";
+import TrackedWebsitesList from "./TrackedWebsitesList";
+import TrackedWebsiteDetails from "./TrackedWebsiteDetails";
 
 
 function NotFound() {
@@ -20,6 +21,16 @@ export default function App() {
     <div className="app">
 
       <nav className="navbar">
+        {user && (
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            "navbar-link" + (isActive ? " navbar-link-selected" : "")
+          }
+        >
+          Dashboard
+        </NavLink>
+        )}
         <div className="navbar-auth">
           {
           loading ? (<span>
@@ -40,7 +51,8 @@ export default function App() {
       
       <Routes>
         <Route path="/" element={<div />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard" element={<TrackedWebsitesList />} />
+        <Route path="/dashboard/:id" element={<TrackedWebsiteDetails />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/logout" element={<LogoutPage />} />

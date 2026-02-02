@@ -8,13 +8,15 @@ type TrackedWebsiteElementProps = {
 }
 
 export default function TrackedWebsiteElement({trackedWebsite} : TrackedWebsiteElementProps) {
-    return <div className="tracked-website-element">
+    return <Link to={"/dashboard/" + trackedWebsite.id} target="_blank" className="tracked-website-element">
         <span className="tracked-website-title">
             {trackedWebsite.title || <span className="text-gray">No title</span>}
         </span>
-        <Link className="tracked-website-url" to={trackedWebsite.url} target="_blank">{trackedWebsite.url}</Link>
+        <span className="tracked-website-url">
+            <Link to={trackedWebsite.url} target="_blank" onClick={(e) => e.stopPropagation()}>{trackedWebsite.url}</Link>
+        </span>
         <span className="tracked-website-date">
             {formatNiceDate(trackedWebsite.created_at)}
         </span>
-    </div>
+    </Link>
 }

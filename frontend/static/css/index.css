@@ -9,12 +9,19 @@ body {
   font-variation-settings: "wdth" 100;
 
   background: var(--bg);
-  color: #e3e3e3;
+  color: var(--text-color);
   font-size: 1rem;
+}
+
+.hidden {
+  display: none;
 }
 
 a {
   color: var(--blue);
+}
+a:hover {
+  color: var(--blue-light);
 }
 
 .text-gray {
@@ -52,6 +59,10 @@ a {
   padding: 5px 10px;
   border-radius: 3px;
   background: var(--navbar-bg-light);
+}
+
+.navbar-link-selected {
+  background: var(--navbar-bg-selected);
 }
 
 input {

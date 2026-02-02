@@ -1,9 +1,11 @@
 :root {
+    --text-color: #e3e3e3;
     --bg: rgb(9, 11, 15);
     --border: rgb(70, 70, 70);
     --border-light: rgb(100, 100, 100);
     --navbar-bg: rgb(15, 19, 26);
     --navbar-bg-light: rgb(22, 27, 36);
+    --navbar-bg-selected: rgb(33, 39, 51);
     --navbar-height: 60px;
     --blue: rgb(0, 132, 255);
     --blue-dark: rgb(0, 132, 255, 0.9);

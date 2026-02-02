@@ -33,7 +33,7 @@
 .tracked-websites-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .tracked-website-element {
@@ -45,6 +45,12 @@
     flex-direction: row;
     align-items: center;
     gap: 30px;
+    text-decoration: none;
+    color: var(--text-color);
+}
+.tracked-website-element:hover {
+    color: var(--text-color);
+    background: var(--navbar-bg-light);
 }
 
 .tracked-website-title {
@@ -68,6 +74,9 @@
 .tracked-website-element-header {
     background: rgb(0,0,0,0);
 }
+.tracked-website-element-header:hover {
+    background: rgb(0,0,0,0);
+}
 
 .tracked-websites-controls {
     margin-bottom: 20px;
@@ -79,12 +88,27 @@
     border-bottom: 1px solid var(--border);
 }
 
+.tracked-websites-search-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .tracked-websites-search {
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 1rem;
     min-width: 400px;
     width: 40%;
+    padding-left: 35px;
+}
+
+.tracked-websites-search-icon {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    left: 10px;
 }
 
 .tracked-websites-sortdir {
