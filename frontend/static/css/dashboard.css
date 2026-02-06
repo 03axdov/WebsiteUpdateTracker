@@ -23,17 +23,26 @@
     width: 35px;
     height: 35px;
     cursor: pointer;
+    padding: 7px;
+    background: var(--navbar-bg-light);
+    border-radius: 3px;
 }
 
 .dashboard-right {
     padding-left: calc(var(--sidebar-width) + 30px);
-    padding-right: 30px;
 }
 
 .tracked-websites-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.tracked-websites-list-outer {
+    overflow-y: auto;
+    max-height: calc(100vh - var(--navbar-height));
+    scrollbar-color: #555 #1e1e1e;
+    padding-right: 30px;
 }
 
 .tracked-website-element {
@@ -115,4 +124,61 @@
     width: 25px;
     height: 25px;
     cursor: pointer;
+}
+
+.create-tracked-website-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 10px;
+    background: var(--blue);
+    gap: 5px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.create-tracked-website-button-icon {
+    height: 25px;
+    width: 25px;
+}
+
+.create-tracked-website-page {
+    padding-right: 30px;
+    max-height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
+    scrollbar-color: #555 #1e1e1e;
+}
+
+.create-tracked-website-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 50px;
+}
+
+.create-website-field {
+    padding: 5px 10px;
+    min-width: 400px;
+    border-radius: 5px;
+}
+
+.label-field-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.label-required {
+    font-size: 0.9rem;
+    color: var(--text-grayer);
+    margin-left: 5px;
 }
