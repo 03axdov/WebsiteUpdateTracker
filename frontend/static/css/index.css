@@ -85,6 +85,21 @@ input {
   outline: none;
 }
 
+textarea {
+  border: 1px solid var(--border);
+  background: rgb(0,0,0,0);
+  color: white;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: hidden;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  outline: none;
+}
+
 input:focus {
   border: 1px solid var(--border-light);
 }
