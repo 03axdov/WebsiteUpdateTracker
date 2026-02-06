@@ -1,6 +1,10 @@
 .dashboard-title {
     font-size: 3rem;
     font-weight: 300;
+    white-space: nowrap;
+    max-width: 70%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
 .dashboard-left {
@@ -15,7 +19,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
+    gap: 20px;
     padding: 30px 0;
 }
 
@@ -26,6 +30,9 @@
     padding: 7px;
     background: var(--navbar-bg-light);
     border-radius: 3px;
+}
+.dashboard-icon:hover {
+    background: var(--navbar-bg-selected);
 }
 
 .dashboard-right {
@@ -140,8 +147,8 @@
 }
 
 .create-tracked-website-button-icon {
-    height: 25px;
-    width: 25px;
+    font-size: 1.5rem;
+    margin: 0;
 }
 
 .create-tracked-website-page {
@@ -181,4 +188,48 @@
     font-size: 0.9rem;
     color: var(--text-grayer);
     margin-left: 5px;
+}
+
+.dashboard-back {
+    padding: 5px 10px;
+    background: var(--navbar-bg);
+    color: white;
+    border-radius: 3px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.tracked-website-details-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 10px;
+}
+
+.tracked-website-details-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tracked-website-details-label {
+    font-size: 1.3rem;
+    width: 125px;
+    text-align: right;
+    color: var(--text-grayer);
+}
+.tracked-website-details-field {
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+.tracked-website-details-description {
+    max-width: 500px;
+    font-size: 1.3rem;
+}
+
+.label-field-description {
+    align-items: start;
 }

@@ -5,6 +5,7 @@ export type TrackedWebsite = {
     owner: User;
     url: string;
     title: string;
+    description: string;
     created_at: Date;
 };
 

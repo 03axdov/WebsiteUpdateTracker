@@ -1,6 +1,6 @@
 // pages/DashboardList.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { apiFetch } from "../api";
 import { useAuth } from "../auth";
 import type { TrackedWebsite } from "../types/tracked-websites";
@@ -15,6 +15,7 @@ export default function DashboardList() {
   const { user, loading: authLoading } = useAuth();
 
   const [trackedWebsites, setTrackedWebsites] = useState<TrackedWebsite[]>([]);
+  const [loadingTrackedWebsites, setLoadingTrackedWebsites] = useState(true);
   const [search, setSearch] = useState("");
 
   const listRef = useRef<HTMLDivElement | null>(null);  // TODO: restore scroll
@@ -22,6 +23,7 @@ export default function DashboardList() {
   async function getTrackedWebsites() {
     const data = await apiFetch("/api/tracked-websites/", { method: "GET" });
     setTrackedWebsites(data);
+    setLoadingTrackedWebsites(false)
   }
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export default function DashboardList() {
           className="create-tracked-website-button"
           onClick={() => navigate("/dashboard/create")}
         >
-          <img className="create-tracked-website-button-icon" src="/images/create.svg" />
+          <span className="create-tracked-website-button-icon">+</span>
           Add tracked website
         </button>
 
@@ -65,11 +67,11 @@ export default function DashboardList() {
       </div>
 
       <div className="tracked-websites-list">
-        <div className="tracked-website-element tracked-website-element-header">
+        {trackedWebsites.length > 0 && <div className="tracked-website-element tracked-website-element-header">
           <span className="tracked-website-title">Title</span>
           <span className="tracked-website-url">URL</span>
           <span className="tracked-website-date">Created at</span>
-        </div>
+        </div>}
 
         {visibleWebsites.map((tw) => (
           <TrackedWebsiteElement trackedWebsite={tw} key={tw.id} />
@@ -80,6 +82,9 @@ export default function DashboardList() {
             <span className="text-gray">No such websites found.</span>
           </div>
         )}
+        {!loadingTrackedWebsites && trackedWebsites.length == 0 && <div className="tracked-website-element">
+            <span className="text-gray">You don't have any tracked websites. Click <Link to="/dashboard/create">here</Link> to create one.</span>
+          </div>}
       </div>
     </div>
   );

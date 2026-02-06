@@ -28,6 +28,9 @@ a:hover {
 .text-gray {
   color: var(--text-gray);
 }
+.text-grayer {
+  color: var(--text-grayer);
+}
 
 .navbar {
   position: fixed;
