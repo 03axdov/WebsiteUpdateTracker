@@ -36,7 +36,6 @@ class TrackedWebsite(models.Model):
     last_scraped = models.DateTimeField(null=True)
     
     notify_email = models.BooleanField(default=False)
-    notify_sms = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.url} ({self.owner.username})"

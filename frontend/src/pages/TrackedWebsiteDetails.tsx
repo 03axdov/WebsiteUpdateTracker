@@ -26,7 +26,7 @@ export default function TrackedWebsiteDetails() {
   return (
     <div className="details-panel">
       <div className="tracked-website-details-header">
-        <Link className="dashboard-back" to="/dashboard">←</Link>
+        <Link className="dashboard-back" to="/dashboard"><img className="dashboard-back-icon" src="/images/back.svg"/></Link>
         {(trackedWebsite?.title ? 
         <h1 className="dashboard-title">{trackedWebsite?.title}</h1> : 
         <h1 className="dashboard-title text-grayer">No title</h1>
@@ -42,6 +42,11 @@ export default function TrackedWebsiteDetails() {
         <div className="label-field-container">
           <span className="tracked-website-details-label">Created:</span>
           <span className="tracked-website-details-field">{formatNiceDate(trackedWebsite.created_at)}</span>
+        </div>
+
+        <div className="label-field-container">
+          <span className="tracked-website-details-label">Last scraped:</span>
+          <span className="tracked-website-details-field">{trackedWebsite.last_scraped ? formatNiceDate(trackedWebsite.last_scraped) : <span className="text-grayer">Never</span>}</span>
         </div>
 
         <div className="label-field-container label-field-description">

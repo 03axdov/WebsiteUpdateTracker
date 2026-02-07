@@ -1,12 +1,20 @@
 import type { User } from "./auth";
 
 export type TrackedWebsite = {
-    id: number,
-    owner: User;
-    url: string;
-    title: string;
-    description: string;
-    created_at: Date;
+  id: number,
+  owner: User;
+  url: string;
+  title: string;
+  description: string;
+  created_at: Date;
+  last_scraped: Date
+};
+
+export type TrackedWebsiteCreateInput = {
+  url: string;
+  title?: string;
+  description?: string;
+  notify_email?: boolean;
 };
 
 export type TrackedWebsiteSortKey = "created_at" | "url" | "title";
