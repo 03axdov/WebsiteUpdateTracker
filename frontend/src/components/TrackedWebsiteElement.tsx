@@ -12,7 +12,7 @@ export default function TrackedWebsiteElement({trackedWebsite} : TrackedWebsiteE
 
     return <div onClick={() => navigate("/dashboard/" + trackedWebsite.id)} className="tracked-website-element">
         <span className="tracked-website-title">
-            {trackedWebsite.title || <span className="text-gray">No title</span>}
+            {trackedWebsite.title || <span className="text-grayer">No title</span>}
         </span>
         <span className="tracked-website-url">
             <Link to={trackedWebsite.url} target="_blank" onClick={(e) => e.stopPropagation()}>{trackedWebsite.url}</Link>

@@ -58,11 +58,6 @@ export default function CreateTrackedWebsite() {
           <input className="create-website-field" id="url" type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="URL" required />
         </div>
 
-        <div className="label-field-container label-field-description">
-          <label htmlFor="description" className="label">Note</label>
-          <textarea className="create-website-field create-website-description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
-        </div>
-
         <div className="label-field-container">
           <label className="label">Notifications</label>
           <div className="notifications-container">
@@ -73,7 +68,13 @@ export default function CreateTrackedWebsite() {
           </div>
         </div>
 
-        <button className="submit-tracked-website-button" type="submit">Create</button>
+        <div className="label-field-container label-field-description">
+          <label htmlFor="description" className="label">Note</label>
+          <textarea className="create-website-field create-website-description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
+        </div>
+        
+
+        <button className="submit-tracked-website-button" type="submit">{(!loading ? "Create" : "Loading...")}</button>
       </form>
     </div>
   )
