@@ -3,6 +3,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 import hashlib
+from datetime import timezone
 
 
 class UserProfile(models.Model):
@@ -19,7 +20,7 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user=instance)
+            UserProfile.objects.create(user=instance)
 
 
 class TrackedWebsite(models.Model):
@@ -40,20 +41,22 @@ class TrackedWebsite(models.Model):
     def __str__(self):
         return f"{self.url} ({self.owner.username})"
     
-    def clean(self):
-        super().clean()
-
-        if self.notify_sms:
-            profile = getattr(self.owner, "profile", None)
-            if not profile or not profile.phone_number:
-                raise ValidationError({
-                    "notify_sms": "SMS notifications require a phone number in your profile."
-                })
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["owner", "url"],
+                name="uniq_owner_url"
+            )
+        ]
                 
                 
 def snapshot_upload_path(instance: "TrackedWebsiteSnapshot", filename: str) -> str:
-    # Keep it deterministic and organized
-    return f"scrapes/user_{instance.website.owner_id}/website_{instance.website_id}/{instance.created_at:%Y/%m/%d}/{filename}"
+    dt = instance.created_at or timezone.now()
+    return (
+        f"scrapes/user_{instance.website.owner_id}/"
+        f"website_{instance.website_id}/"
+        f"{dt:%Y/%m/%d}/{filename}"
+    )
 
 
 class TrackedWebsiteSnapshot(models.Model):
@@ -76,9 +79,16 @@ class TrackedWebsiteSnapshot(models.Model):
 
     def save(self, *args, **kwargs):
         if self.html_file and not self.sha256:
+            h = hashlib.sha256()
             self.html_file.seek(0)
-            data = self.html_file.read()
-            self.bytes = len(data)
-            self.sha256 = hashlib.sha256(data).hexdigest()
+
+            total = 0
+            for chunk in self.html_file.chunks():
+                total += len(chunk)
+                h.update(chunk)
+
+            self.bytes = total
+            self.sha256 = h.hexdigest()
             self.html_file.seek(0)
+
         super().save(*args, **kwargs)
