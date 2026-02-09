@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { apiFetch, ensureCsrfCookie } from "./api";
-import type { User } from "./types/auth";
+import { apiFetch, ensureCsrfCookie } from "../api";
+import type { User } from "../types/auth";
 
 
 type AuthState = {

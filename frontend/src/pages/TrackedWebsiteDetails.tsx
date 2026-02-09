@@ -1,14 +1,20 @@
 import {useEffect, useState} from "react"
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { formatNiceDate, type TrackedWebsite } from "../types/tracked-websites";
 import { apiFetch, ensureCsrfCookie } from "../api";
+import { useNotify } from "../contexts/notify";
+
 
 export default function TrackedWebsiteDetails() {
+  const notify = useNotify()
+  const navigate = useNavigate()
+
   const { id } = useParams<{ id: string }>();
   const [trackedWebsite, setTrackedWebsite] = useState<TrackedWebsite>();
   const [loadingTrackedWebsite, setLoadingTrackedWebsite] = useState(false)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const [title, setTitle] = useState("")
@@ -57,10 +63,29 @@ export default function TrackedWebsiteDetails() {
       });
       setTrackedWebsite(data)
       setEditing(false)
+      notify("Saved changes successfully", { type: "success" })
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to update website.")
     } finally {
       setSaving(false)
+    }
+  }
+
+  async function deleteTrackedWebsite() {
+    if (!id) return;
+    const ok = window.confirm("Delete this tracked website? This cannot be undone.");
+    if (!ok) return;
+    setDeleting(true)
+    setError(null)
+    try {
+      await ensureCsrfCookie();
+      await apiFetch("/api/tracked-websites/" + id + "/", { method: "DELETE" });
+      notify("Deleted successfully", { type: "success" })
+      navigate("/dashboard")
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to delete website.")
+    } finally {
+      setDeleting(false)
     }
   }
 
@@ -91,7 +116,12 @@ export default function TrackedWebsiteDetails() {
         <h1 className="dashboard-title text-grayer">No title</h1>
         )}
         {!editing && trackedWebsite && (
-          <button className="details-edit-button" type="button" onClick={startEditing}>Edit</button>
+          <div className="details-header-actions">
+            <button className="details-edit-button" type="button" onClick={startEditing}>Edit</button>
+            <button className="details-delete-button" type="button" onClick={deleteTrackedWebsite} disabled={deleting}>
+              {!deleting ? "Delete" : "Deleting..."}
+            </button>
+          </div>
         )}
       </div>
       

@@ -293,7 +293,6 @@
 }
 
 .details-edit-button {
-    margin-left: auto;
     padding: 5px 10px;
     border-radius: 3px;
     border: none;
@@ -311,6 +310,31 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+}
+
+.details-header-actions {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.details-delete-button {
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: none;
+    background: rgb(80, 20, 20);
+    color: rgb(255, 220, 220);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+.details-delete-button:hover {
+    background: rgb(120, 30, 30);
+}
+.details-delete-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .details-cancel-button {

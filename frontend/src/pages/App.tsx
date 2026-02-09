@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, Link, NavLink } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
-import { useAuth } from "../auth";
+import { useAuth } from "../contexts/auth";
 import LogoutPage from "./LogoutPage";
 import TrackedWebsiteDetails from "./TrackedWebsiteDetails";
 import CreateTrackedWebsite from "./CreateTrackedWebsite";

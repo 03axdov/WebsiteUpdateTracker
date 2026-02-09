@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../auth"; // adjust path
+import { useAuth } from "../contexts/auth"; // adjust path
 
 export default function LogoutPage() {
   const nav = useNavigate();

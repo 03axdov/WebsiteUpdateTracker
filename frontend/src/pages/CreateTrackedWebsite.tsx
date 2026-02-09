@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { TrackedWebsiteCreateInput } from "../types/tracked-websites";
 import { apiFetch, ensureCsrfCookie } from "../api";
+import { useNotify } from "../contexts/notify";
+
 
 export default function CreateTrackedWebsite() {
+  const notify = useNotify()
   const navigate = useNavigate()
 
   const [title, setTitle] = useState("")
@@ -28,6 +31,7 @@ export default function CreateTrackedWebsite() {
         }),
       });
       navigate("/dashboard")
+      notify("Tracked website created successfully", {type: "success"})
     } catch (e) {
       console.log(e)
     } finally {

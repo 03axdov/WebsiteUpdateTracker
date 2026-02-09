@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { apiFetch } from "../api";
-import { useAuth } from "../auth";
+import { useAuth } from "../contexts/auth";
 import type { TrackedWebsite } from "../types/tracked-websites";
 import TrackedWebsiteElement from "../components/TrackedWebsiteElement";
 
