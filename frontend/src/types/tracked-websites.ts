@@ -1,7 +1,7 @@
 import type { User } from "./auth";
 
 export type TrackedWebsite = {
-  id: number,
+  id: number;
   owner?: User;
   url: string;
   title: string;
@@ -10,6 +10,20 @@ export type TrackedWebsite = {
   created_at: Date | string;
   last_scraped: Date | string | null;
 };
+
+export type TrackedWebsiteSnapshot = {
+  id: number;
+  website: number;  // id of the TrackedWebsite
+  created_at: Date | string;
+
+  final_url: string;
+  status_code: number | null;
+  content_type: string;
+
+  html_file: string;
+  sha256: string;
+  bytes: number;
+}
 
 export type TrackedWebsiteCreateInput = {
   url: string;

@@ -92,3 +92,7 @@ class TrackedWebsiteSnapshot(models.Model):
             self.html_file.seek(0)
 
         super().save(*args, **kwargs)
+        
+        
+    def __str__(self):
+        return f"{self.website.url} ({self.website.owner.username}) (snapshot)"

@@ -12,4 +12,4 @@ class TrackedWebsiteSnapshotSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrackedWebsiteSnapshot
         fields = "__all__"
-        read_only_fields = "__all__"
+        read_only_fields = [field.name for field in TrackedWebsiteSnapshot._meta.fields]

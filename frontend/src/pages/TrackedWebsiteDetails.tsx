@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { formatNiceDate, type TrackedWebsite } from "../types/tracked-websites";
+import { formatNiceDate, type TrackedWebsite, type TrackedWebsiteSnapshot } from "../types/tracked-websites";
 import { apiFetch, ensureCsrfCookie } from "../api";
 import { useNotify } from "../contexts/notify";
 
@@ -12,6 +12,10 @@ export default function TrackedWebsiteDetails() {
   const { id } = useParams<{ id: string }>();
   const [trackedWebsite, setTrackedWebsite] = useState<TrackedWebsite>();
   const [loadingTrackedWebsite, setLoadingTrackedWebsite] = useState(false)
+
+  const [snapshots, setSnapshots] = useState<TrackedWebsiteSnapshot[]>([])
+  const [loadingSnapshots, setLoadingSnapshots] = useState(false)
+
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
@@ -27,7 +31,7 @@ export default function TrackedWebsiteDetails() {
     setLoadingTrackedWebsite(true)
     setError(null)
     try {
-      const data = await apiFetch("/api/tracked-websites/" + id, { method: "GET" });
+      const data = await apiFetch("/api/tracked-websites/" + id + "/", { method: "GET" });
       setTrackedWebsite(data)
       if (editing) {
         hydrateForm(data)
@@ -36,6 +40,21 @@ export default function TrackedWebsiteDetails() {
       setError(e instanceof Error ? e.message : "Failed to load website.")
     } finally {
       setLoadingTrackedWebsite(false)
+    }
+  }
+
+  async function getSnapshots() {
+    if (!id) return;
+    setLoadingSnapshots(true)
+    try {
+      const data = await apiFetch("/api/tracked-websites/" + id + "/snapshots/", { method: "GET" });
+      console.log(data)
+      setSnapshots(data)
+
+    } catch (e) {
+      console.log(e) // Fine for now
+    } finally {
+      setLoadingSnapshots(false)
     }
   }
 
@@ -105,6 +124,7 @@ export default function TrackedWebsiteDetails() {
 
   useEffect(() => {
     getTrackedWebsite()
+    getSnapshots()
   }, [id])
 
   return (
@@ -154,6 +174,11 @@ export default function TrackedWebsiteDetails() {
           <span className="tracked-website-details-label">Description:</span>
           <span className="tracked-website-details-description">{trackedWebsite.description || "You have not added a description to this website."}</span>
         </div>
+
+        <h1 className="dashboard-subtitle">Snapshots</h1>
+        {snapshots.map((snapshot) => <div key={snapshot.id}>
+          {snapshot.status_code} - {formatNiceDate(snapshot.created_at)}
+        </div>)}
         
       </div>}
 
